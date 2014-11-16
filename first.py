@@ -11,26 +11,46 @@ binary = FirefoxBinary(firefox_path)
 driver = webdriver.Firefox(firefox_binary=binary)
 
 # go to the google home page
-driver.get("http://www.google.com")
+driver.get("http://jsfiddle.net/7zxuwzdk/3/")
+
+alert = driver.switch_to.alert
+# get alert text
+print alert.text
+alert.accept()
+alert.send_keys('test')
+alert.accept()
+alert.accept()
+
+
+# reload page to try whether dismiss works
+driver.get("http://jsfiddle.net/7zxuwzdk/3/")
+alert = driver.switch_to.alert
+alert.accept()
+alert.send_keys('test')
+alert.dismiss()
+alert.dismiss()
+
 
 # the page is ajaxy so the title is originally this:
-print driver.title
+# print driver.title
 
 # find the element that's name attribute is q (the google search box)
-inputElement = driver.find_element_by_name("q")
+# inputElement = driver.find_element_by_name("q")
 
 # type in the search
-inputElement.send_keys("cheese!")
+# inputElement.send_keys("cheese!")
 
 # submit the form (although google automatically searches now without submitting)
-inputElement.submit()
+# inputElement.submit()
 
 try:
     # we have to wait for the page to refresh, the last thing that seems to be updated is the title
-    WebDriverWait(driver, 10).until(EC.title_contains("cheese!"))
+    # WebDriverWait(driver, 10).until(EC.title_contains("cheese!"))
 
     # You should see "cheese! - Google Search"
-    print driver.title
+    # print driver.title
+    pass
 
 finally:
-    driver.quit()
+    # driver.quit()
+    pass
