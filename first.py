@@ -10,26 +10,15 @@ binary = FirefoxBinary(firefox_path)
 # Create a new instance of the Firefox driver
 driver = webdriver.Firefox(firefox_binary=binary)
 
-# go to the google home page
-driver.get("http://jsfiddle.net/7zxuwzdk/3/")
+test_url = 'http://jsfiddle.net/z9ssr05o/4/'
+driver.get(test_url)
+driver.switch_to.frame('result')
 
-alert = driver.switch_to.alert
-# get alert text
-print alert.text
-alert.accept()
-alert.send_keys('test')
-alert.accept()
-alert.accept()
-
-
-# reload page to try whether dismiss works
-driver.get("http://jsfiddle.net/7zxuwzdk/3/")
-alert = driver.switch_to.alert
-alert.accept()
-alert.send_keys('test')
-alert.dismiss()
-alert.dismiss()
-
+frames = driver.find_elements_by_xpath('//iframe')
+frame = frames[1]
+driver.switch_to.frame(frame)
+print driver.find_element_by_id('test2').text
+driver.quit()
 
 # the page is ajaxy so the title is originally this:
 # print driver.title
